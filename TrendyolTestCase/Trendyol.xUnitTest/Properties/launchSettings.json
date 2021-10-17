@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Trendyol.xUnitTest": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

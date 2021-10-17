@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  trendyol.api:
+    image: ${DOCKER_REGISTRY-}trendyolapi
+    build:
+      context: .
+      dockerfile: Trendyol.API/Dockerfile
+    ports:
+      - "5003:80"
+    networks:
+      - dockernet
+    depends_on:
+      - postgreSqlUI
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - dockernet
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_DB=TrendyolDB
+  postgreSqlUI:
+    image: dpage/pgadmin4
+    container_name: postgreSqlUI
+    ports:
+      - "8002:80"
+    networks:
+      - dockernet
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=oguz@atli.com
+      - PGADMIN_DEFAULT_PASSWORD=oatli
+    depends_on:
+      - postgres
+networks:
+  dockernet:
+    external: true
